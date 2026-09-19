@@ -1,0 +1,2 @@
+../.venv/bin/python scripts/check_provenance.py --config configs/final.yaml
+PASS: 13,691,508 source rows; 1 verified content-addressed manifests; frozen baseline intact

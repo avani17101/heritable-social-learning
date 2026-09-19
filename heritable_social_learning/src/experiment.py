@@ -11,6 +11,8 @@ from .evaluation import evaluate
 from .utils import (CONDITIONS, canonical_hash, paired_data, provenance,
                     save_frame, seed_for, setup, source_files)
 
+TUNING_PROTOCOL = 'independent_screen_v1'
+
 
 def tune(config, output, fresh=False):
     setup()
@@ -33,19 +35,25 @@ def tune(config, output, fresh=False):
                     pop.weights[j*n:(j+1)*n].copy_(base)
             train=paired_data(seed,'tune_train',config,config['train'],len(indices))
             lifetime(pop,train)
-            data=paired_data(seed,'tune_'+split,config,config[split],len(indices),config['evaluation_episodes'])
+            # Preserve learning/validation streams; give training-distribution
+            # screening a separate trajectory stream from lifetime learning.
+            evaluation_namespace = 'tune_screen' if split == 'train' else 'tune_validation'
+            data=paired_data(seed,evaluation_namespace,config,config[split],len(indices),config['evaluation_episodes'])
             acc,_=lifetime(pop,data,learn=False)
             means=acc.mean(0).reshape(len(indices),n).mean(1)
             scores.append(means)
             for index,score in zip(indices,means):
                 records.append(dict(seed=seed,split=split,candidate=index,alpha=candidates[index][0],
-                                    beta=candidates[index][1],gamma=candidates[index][2],fitness=float(score)))
+                                    beta=candidates[index][1],gamma=candidates[index][2],fitness=float(score),
+                                    learning_seed=seed_for(seed,'tune_train'),
+                                    evaluation_seed=seed_for(seed,evaluation_namespace)))
         return np.mean(scores,axis=0)
     train_scores=screen(list(range(len(candidates))),'train')
     shortlist=np.argsort(-train_scores,kind='stable')[:9]
     validation_scores=screen(shortlist,'validation')
     winner=int(shortlist[np.argmax(validation_scores)])
     result=dict(parameters=list(candidates[winner]),candidate=winner,seeds=list(range(1000,1005)),
+                tuning_protocol=TUNING_PROTOCOL,
                 candidates=len(candidates),shortlisted=9,training_score=float(train_scores[winner]),
                 validation_score=float(max(validation_scores)),**meta)
     result['freeze_hash']=canonical_hash(result)
@@ -62,6 +70,8 @@ def load_baseline(config, output):
     frozen_hash=data.pop('freeze_hash')
     if canonical_hash(data)!=frozen_hash or data['config_hash']!=canonical_hash(config):
         raise ValueError('Baseline hash/config mismatch; retune explicitly in a separate output directory')
+    if data.get('tuning_protocol') != TUNING_PROTOCOL:
+        raise ValueError('Baseline predates independent screening; retune before running experiments')
     data['freeze_hash']=frozen_hash
     return data
 

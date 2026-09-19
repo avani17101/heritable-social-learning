@@ -1,0 +1,1 @@
+19 tests passed. 20/20 final seeds completed. 13,691,508 source rows passed provenance checks. Exact seed-zero transfer replay passed. Nine PNG and nine PDF figures generated. Current source equals frozen source snapshot.

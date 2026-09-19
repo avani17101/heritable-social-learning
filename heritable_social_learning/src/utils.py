@@ -81,6 +81,12 @@ def provenance(config, output):
     # Fixed metadata makes the snapshot commit reproducible from its contents.
     bundle = archive/f'{source_hash}.bundle'
     if not bundle.exists():
+        def identity(key, fallback):
+            result = subprocess.run(['git', 'config', '--get', key], cwd=ROOT,
+                                    capture_output=True, text=True)
+            return result.stdout.strip() if result.returncode == 0 else fallback
+        author_name = identity('user.name', 'Research source snapshot')
+        author_email = identity('user.email', 'snapshot@localhost')
         with tempfile.TemporaryDirectory(prefix='social-learning-source-') as temporary:
             directory=Path(temporary)
             for name,content in files.items():
@@ -89,8 +95,8 @@ def provenance(config, output):
                 dest.write_text(content)
             def git(*args):
                 return subprocess.check_output(['git',*args],cwd=directory,stderr=subprocess.DEVNULL,
-                    env={**os.environ,'GIT_AUTHOR_NAME':'Research source snapshot','GIT_AUTHOR_EMAIL':'snapshot@localhost',
-                         'GIT_COMMITTER_NAME':'Research source snapshot','GIT_COMMITTER_EMAIL':'snapshot@localhost',
+                    env={**os.environ,'GIT_AUTHOR_NAME':author_name,'GIT_AUTHOR_EMAIL':author_email,
+                         'GIT_COMMITTER_NAME':author_name,'GIT_COMMITTER_EMAIL':author_email,
                          'GIT_AUTHOR_DATE':'2026-09-19T00:00:00+00:00','GIT_COMMITTER_DATE':'2026-09-19T00:00:00+00:00'},text=True).strip()
             git('init','-q')
             git('add','.')

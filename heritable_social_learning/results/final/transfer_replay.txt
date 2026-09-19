@@ -1,1 +1,1 @@
-Seed 0: exact equality of all episode metrics, summaries, behavioral probes and transferred genomes under the same saved source/config.
+Seed-zero replay: exact equality of episode metrics, summaries, probes and transferred genomes.

@@ -178,6 +178,12 @@ def analyze(config,output):
     save(fig,figdir,'09_behavior')
     report=[]
     report.append('# Results: heritable social-learning strategy\n')
+    if baseline.get('tuning_protocol') == 'independent_screen_v1':
+        report.append('> **Corrected screening protocol.** Baseline learning, screening, and validation use independent '
+                      'random streams; their seed IDs are saved in tuning.parquet. The initial run with reused '
+                      'screening trajectories is preserved in results/archive_screen_reuse/. This rerun retains '
+                      'the original test seeds and is a bug correction, not a new independent confirmation. '
+                      'Search-budget, search-grid and selection-objective limitations remain.\n')
     report.append(f"Completed {config['seeds']} independent evolutionary seeds; no failed or excluded seeds. "
                   f"H2 (evolved vs tuned fixed): **{comparisons['H2']['verdict']}**. "
                   'This is a minimal causal learning-prior prototype, not evidence of cumulative culture.\n')

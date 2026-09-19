@@ -137,3 +137,12 @@ None at registration. The analytical environment gate passed before neural code.
   commit and does not commit or modify the user's working repository.
 - 2026-09-19, debug validation: fixed a test-only NumPy `.fill_` typo. No change
   to the registered environment, model, comparisons, seeds or decision rules.
+- 2026-09-19, post-run correction registered before rerunning: baseline screening
+  accidentally used the learning stream `tune_train`. Change only the screening
+  stream to `tune_screen`; retain the original learning and validation streams,
+  candidate grid, budgets, seed sets, objectives and decision thresholds. Log
+  learning/evaluation seeds in tuning rows and reject legacy baseline freezes.
+  Preserve the initial results under `results/archive_screen_reuse/`, then rerun
+  baseline tuning and all 20 comparison seeds under one corrected source snapshot.
+  This is a correction on an already-inspected test set, not a new independent
+  confirmation. Search-budget and objective limitations remain outside this fix.

@@ -1,5 +1,7 @@
 # Results: heritable social-learning strategy
 
+> **Corrected screening protocol.** Baseline learning, screening, and validation use independent random streams; their seed IDs are saved in tuning.parquet. The initial run with reused screening trajectories is preserved in results/archive_screen_reuse/. This rerun retains the original test seeds and is a bug correction, not a new independent confirmation. Search-budget, search-grid and selection-objective limitations remain.
+
 Completed 20 independent evolutionary seeds; no failed or excluded seeds. H2 (evolved vs tuned fixed): **INCONCLUSIVE**. This is a minimal causal learning-prior prototype, not evidence of cumulative culture.
 
 ## 1. Experimental question
@@ -206,7 +208,7 @@ The primary comparison does not establish an advantage over the tuned fixed stra
 Use a denser fixed-strategy search and a Bayesian-history reference under the same learning budget; replace the lineage permutation with an explicitly randomized parent-genome transmission intervention if a lineage claim is needed. Do not proceed to a richer developmental genome until the current control limitations are resolved.
 
 ## Provenance and reuse
-NumPy RNG/arrays, PyTorch autograd/SGD, SciPy bootstrap/sigmoid, Pandas/PyArrow Parquet and Matplotlib plotting were reused. Only environment, reproduction and task-specific metrics are custom. Each source row links to a config hash and full source snapshot. Source hash: `5d25bad7081c0ef2dc034fb776995616ee0874c9b119229c8cec94b058fe5783`. Clean snapshot Git SHA: `b899483ec6d448e24a0fe2bf227207a70b9f15d1`. An isolated Git bundle stores the exact executed source without committing the working project. Raw rows are in seed folders; derived seed metrics/statistics are in analysis/.
+NumPy RNG/arrays, PyTorch autograd/SGD, SciPy bootstrap/sigmoid, Pandas/PyArrow Parquet and Matplotlib plotting were reused. Only environment, reproduction and task-specific metrics are custom. Each source row links to a config hash and full source snapshot. Source hash: `391cf9088d3e304ce612942646782579e4f1e5995e55f96f9bfce324c1008c0f`. Clean snapshot Git SHA: `ebbe8207a3589e6c9191c3f0d8885e1b0f026ecf`. An isolated Git bundle stores the exact executed source without committing the working project. Raw rows are in seed folders; derived seed metrics/statistics are in analysis/.
 
 ## Figures
 
