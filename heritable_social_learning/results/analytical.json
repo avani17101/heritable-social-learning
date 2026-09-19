@@ -1,0 +1,26 @@
+[
+  {
+    "private": 0.7,
+    "blind_copy": 0.7,
+    "optimal": 0.8020833333333331,
+    "min_joint": 0.0005451388888888892,
+    "follow_peer_low": 0.0,
+    "follow_peer_high": 1.0
+  },
+  {
+    "private": 0.85,
+    "blind_copy": 0.5,
+    "optimal": 0.8499999999999999,
+    "min_joint": 0.0003489583333333335,
+    "follow_peer_low": 0.0,
+    "follow_peer_high": 0.0
+  },
+  {
+    "private": 0.5,
+    "blind_copy": 0.85,
+    "optimal": 0.8499999999999998,
+    "min_joint": 0.000717592592592593,
+    "follow_peer_low": 1.0,
+    "follow_peer_high": 1.0
+  }
+]
