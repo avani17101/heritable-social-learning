@@ -1,0 +1,15 @@
+population_size: 32
+generations: 50
+elite_fraction: 0.25
+mutation_scale: 0.25
+learning_episodes: 24
+evaluation_episodes: 24
+test_episodes: 40
+episode_length: 10
+learning_rate: 0.15
+init_std: 0.05
+seeds: 20
+device: cpu
+train: [[0.65, 0.65], [0.65, 0.75], [0.75, 0.65], [0.75, 0.75]]
+validation: [[0.625, 0.625], [0.625, 0.725], [0.625, 0.775], [0.725, 0.625], [0.725, 0.725], [0.725, 0.775], [0.775, 0.625], [0.775, 0.725], [0.775, 0.775]]
+test: [[0.6, 0.6], [0.6, 0.7], [0.6, 0.8], [0.7, 0.6], [0.7, 0.7], [0.7, 0.8], [0.8, 0.6], [0.8, 0.7], [0.8, 0.8]]

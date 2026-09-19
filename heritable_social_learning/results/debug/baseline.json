@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    0.2,
+    0.2,
+    0.2
+  ],
+  "candidate": 0,
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "candidates": 27,
+  "shortlisted": 9,
+  "training_score": 0.7318749985657632,
+  "validation_score": 0.6353124988498167,
+  "source_hash": "1006d1195a47c2d4bda49eb013bf0b268d74bf9a506c62be2b35faa65b70763a",
+  "config_hash": "61b440ef7c8185da32fd1231462c1dacaf97817f438a577d14a82e4fc0ae34e9",
+  "git_sha": "02a89eeb355eeb0ae290ecd7ebc1931636120f9b",
+  "git_dirty": true,
+  "freeze_hash": "0d85bcb4b513d9851230dc45ca58bccb7a3b550dad8a1bbb19f66ec565062ccc"
+}

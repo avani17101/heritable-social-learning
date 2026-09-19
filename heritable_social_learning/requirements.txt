@@ -1,0 +1,8 @@
+numpy>=2.0,<3
+torch>=2.4,<3
+scipy>=1.14,<2
+pandas>=2.2,<4
+pyarrow>=17,<26
+matplotlib>=3.9,<4
+PyYAML>=6,<7
+pytest>=8,<10
