@@ -55,17 +55,95 @@ cumulative culture. Peers are exogenous demonstrators, and shuffling genomes
 among interchangeable newborns preserves population-level inheritance; that
 control cannot establish a special causal role for lineage continuity.
 
-## Current result
+## Results
 
-The corrected 20-seed study finds a useful evolved prior relative to random
-genomes and individual-only learning. It does **not establish superiority over
-the tuned fixed prior**: mean lifetime regret is 88.20 versus 87.83, with a paired
-95% interval for fixed-minus-evolved regret of −0.98 to +0.19. Lower is better.
+**A useful learning prior transfers to newborns. An advantage over the tuned
+fixed prior remains inconclusive.**
+
+These are results from the corrected run: **20 independent evolutionary seeds,
+32 agents, and 50 generations**. Newborn evaluation uses fresh networks with
+matched initial weights, task samples, learning rates, and learning budgets.
+Each test lifetime contains 400 decisions; results average over nine held-out
+private/social reliability pairs.
+
+### Lifetime performance
+
+Cumulative correctness regret counts mistakes relative to an omniscient-state
+oracle. **Lower is better.** Means and 95% bootstrap confidence intervals across
+the 20 independent seeds are:
+
+- **Tuned fixed prior:** 87.83 mistakes [87.68, 88.00].
+- **Evolved prior:** 88.20 mistakes [87.62, 88.84].
+- **Lineage-shuffled:** 88.36 mistakes [87.77, 88.91].
+- **Random genome:** 108.84 mistakes [108.17, 109.49].
+- **Hand-set fixed prior:** 110.99 mistakes [110.82, 111.16].
+- **Individual-only:** 120.88 mistakes [120.69, 121.07].
+
+![Cumulative regret during newborn learning for evolved, tuned fixed, random, and social-ablation conditions.](heritable_social_learning/figures/final/07_transfer.png)
+
+*Fresh newborns, identical initial neural weights across conditions. Shading is
+the pointwise 95% bootstrap interval across evolutionary seeds. The evolved and
+tuned fixed curves nearly overlap. Ablation removes the evolved prior's social
+input and social learning.*
+
+### What the comparisons establish
+
+- **Social-learning advantage — supported.** Evolved learners make 32.68 fewer
+  mistakes than individual-only learners over the lifetime; paired 95% CI
+  [31.98, 33.34]. All 20 seeds favor the evolved condition.
+- **Advantage over the tuned fixed prior — inconclusive.** Fixed-minus-evolved
+  regret is −0.36, with paired 95% CI [−0.98, +0.19]. Seven seeds favor evolution
+  and thirteen favor the fixed prior. This does not establish equivalence either.
+- **Early newborn transfer — supported.** During the first 100 decisions,
+  evolved genomes save 1.30 mistakes relative to random genomes; paired 95% CI
+  [1.19, 1.41]. All 20 seeds favor the evolved prior.
+- **Lineage dependence — inconclusive.** Shuffling genomes among interchangeable
+  newborns preserves inherited information. This control cannot establish a
+  special causal role for parent–offspring continuity.
+- **Environmental specialization — supported, exploratory.** Independent
+  selection under different reliability regimes changes effective social/private
+  weighting in the predicted direction. This is a separate exploratory analysis.
+
+The three planned confirmatory verdicts use Bonferroni-adjusted **98.333%**
+intervals, not the displayed 95% intervals alone. Agents and environments are
+averaged within each seed; they are not counted as independent replications.
+
+### Adaptation and a failure case
+
+![Accuracy before and after an unannounced shift from reliable private information to more reliable social information.](heritable_social_learning/figures/final/03_shift.png)
+
+*At episode 20, reliability changes from (private .80, social .60) to
+(private .60, social .80). Agents receive no explicit shift signal. Bands are
+pointwise 95% bootstrap intervals across seeds.*
+
+Both evolved and tuned fixed priors recover under the registered threshold;
+their total-regret difference under this shift remains inconclusive. The
+individual-only and hand-set fixed conditions do not recover within the observed
+window in any of the 20 seeds. Recovery means a trailing three-episode accuracy
+reaches 90% of the mean accuracy over the last five pre-shift episodes.
+
+**Trust can also hurt.** When peer information is uninformative outside the
+training distribution, evolved learners incur **68.25 more mistakes** than the
+individual-only condition, with paired 95% CI [63.22, 72.18]. The prior is useful
+under the tested information regimes, but robust rejection of useless peers has
+not been demonstrated.
+
+### Reproducibility and scope
 
 The baseline screening bug is fixed, all 21 tests pass, and the full rerun selected
 the same baseline and reproduced the results. The original study is archived.
 The rerun uses previously examined test seeds; it corrects the implementation
 and is not an independent confirmation.
+
+The full report includes all eight condition summaries, genome trajectories,
+behavioral probes, effect sizes, censored recovery counts, and every hypothesis
+classification:
+
+- [Full results and all nine figures](heritable_social_learning/results/RESULTS.md)
+- [Machine-readable statistics](heritable_social_learning/results/final/analysis/statistics.json)
+- [Per-seed metrics](heritable_social_learning/results/final/analysis/seed_metrics.csv)
+- [Validation and exact-replay checks](heritable_social_learning/results/final/validation.txt)
+- [Original study retained for comparison](heritable_social_learning/results/archive_screen_reuse/RESULTS.md)
 
 ## Research to do next
 
